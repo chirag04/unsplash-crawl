@@ -18,7 +18,7 @@ var uc = require('unsplash-crawl');
 
 uc.crawl({
 	start_page: 1,
-	end_page: 12
+	end_page: 1
 },function(image){
 	console.log(images);
 	/*
