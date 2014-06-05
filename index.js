@@ -1,4 +1,3 @@
-var path = require('path');
 var cheerio = require('cheerio');
 var request = require('request');
 var async = require('async');
@@ -11,7 +10,6 @@ module.exports = {
 		if(!options)
 			throw new Error('options are not defined');
 
-		var _path = path.resolve(__dirname, (options.path? options.path:'') );
 		var start_page = options.start_page ? options.start_page : 1;
 		var end_page = options.end_page ? options.end_page : 5;
 

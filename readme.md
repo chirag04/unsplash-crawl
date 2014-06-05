@@ -17,10 +17,8 @@ JavaScript Code:
 var uc = require('unsplash-crawl');
 
 uc.crawl({
-	path: './images',
 	start_page: 1,
-	end_page: 12,
-	maxFiles: 10
+	end_page: 12
 },function(image){
 	console.log(images);
 	/*
