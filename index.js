@@ -2,13 +2,14 @@ var cheerio = require('cheerio');
 var request = require('request');
 var async = require('async');
 
-var unsplash_url = 'http://unsplash.com/page/';
+var unsplash_url = 'http://unsplash.com?page=';
 var images = [];
 
 module.exports = {
 	crawl: function(options, callback) {
-		if(!options)
-			throw new Error('options are not defined');
+		if(!options) {
+			return callback(new Error('options are not defined'));
+		}
 
 		var start_page = options.start_page ? options.start_page : 1;
 		var end_page = options.end_page ? options.end_page : 5;
@@ -19,17 +20,19 @@ module.exports = {
 		};
 
 		async.each(pages, perPage, function (err) {
-    		callback(images)
+			callback(err, images);
 		});
 	}
 }
 
 function perPage(page, callback) {
 	request(unsplash_url + page, function(error, response, body) {
-	  	if (!error && response.statusCode == 200) {
-	    	$ = cheerio.load(body);
-	    	var image = {};
-			$('a', '.caption').each( function(index, element) {
+		if(error) {
+			callback(error);
+		} else if (response.statusCode == 200) {
+			$ = cheerio.load(body);
+			var image = {};
+			$('a', '.epsilon').each( function(index, element) {
 				var text = $(this).text();
 				if( text == 'Download') {
 					image = {image_link: $(this).attr('href')};
@@ -40,6 +43,9 @@ function perPage(page, callback) {
 				}
 			});
 			callback();
-	  	}
+		} else {
+			console.log(response.statusCode)
+			callback(new Error('Could not request unsplash'));
+		}
 	});
 };
