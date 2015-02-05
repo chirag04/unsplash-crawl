@@ -1,6 +1,6 @@
 {
     "name": "unsplash-crawl",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Crawl all images from unsplash",
     "repository": {
         "type": "git",
