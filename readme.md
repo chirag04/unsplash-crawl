@@ -19,7 +19,7 @@ var uc = require('unsplash-crawl');
 uc.crawl({
 	start_page: 1,
 	end_page: 1
-},function(err, image){
+},function(err, images){
 	console.log(images);
 	/*
 		[ 
