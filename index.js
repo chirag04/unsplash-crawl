@@ -17,13 +17,13 @@ module.exports = {
 		var pages = [];
 		for (var i = start_page; i <= end_page; i++) {
 			pages.push(i);
-		};
+		}
 
 		async.each(pages, perPage, function (err) {
 			callback(err, images);
 		});
 	}
-}
+};
 
 function perPage(page, callback) {
 	request(unsplash_url + page, function(error, response, body) {
@@ -34,9 +34,9 @@ function perPage(page, callback) {
 			var image = {};
 			$('a', '.epsilon').each( function(index, element) {
 				var text = $(this).text();
-				if( text == 'Download') {
+				if( text === 'Download') {
 					image = {image_link: $(this).attr('href')};
-				} else {
+				} else if( text !== 'Subscribe' && text !== 'do whatever you want' ) {
 					image.author = $(this).text();
 					image.author_link = $(this).attr('href');
 					images.push(image);
@@ -44,8 +44,8 @@ function perPage(page, callback) {
 			});
 			callback();
 		} else {
-			console.log(response.statusCode)
+			console.log(response.statusCode);
 			callback(new Error('Could not request unsplash'));
 		}
 	});
-};
+}
